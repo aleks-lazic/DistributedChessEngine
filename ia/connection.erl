@@ -19,8 +19,8 @@
 -export([count/0]).
 
 count() ->
-    Pid = {counterserver},
-	Pid ! {self(), "count"},
+	PidJava = counterserver,
+	{PidJava, 'server@aleks'} ! {self(), "count"},
     io:format("Counter is at value: test count après envoi message~n", []),
 	receive
 		{ok, Counter} ->

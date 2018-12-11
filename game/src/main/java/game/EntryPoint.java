@@ -17,10 +17,9 @@ public class EntryPoint {
 
 			while (true) {
 				try {
-					
 					o = mbox.receive();
 					if (o instanceof OtpErlangTuple) {
-						System.out.println("message reçu");
+						System.out.println("message reï¿½u");
 						msg = (OtpErlangTuple) o;
 						from = (OtpErlangPid) (msg.elementAt(0));
 						mbox.send(from, msg.elementAt(1));
