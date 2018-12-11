@@ -11,8 +11,8 @@ public class Chess {
 		System.out.println("Tuple: " + tuple);
 		String fen = tuple.elementAt(0).toString().replace("\"", "");
 		Board board = new Board();
-	    board.loadFromFen(fen);
-	    MoveList moves = MoveGenerator.generateLegalMoves(board);
+		board.loadFromFen(fen);
+		MoveList moves = MoveGenerator.generateLegalMoves(board);
 		OtpErlangString[] results = new OtpErlangString[moves.size()];
 		for (int i = 0; i < results.length; i++) {
 			board.loadFromFen(fen);
@@ -27,10 +27,10 @@ public class Chess {
 		String fen = tuple.elementAt(0).toString().replace("\"", "");
 		Move move = new Move(tuple.elementAt(1).toString().replace("\"", ""), null);
 		Board board = new Board();
-	    board.loadFromFen(fen);
-	    if (board.doMove(move, true)) {
+		board.loadFromFen(fen);
+		if (board.doMove(move, true)) {
 			return new OtpErlangTuple(new OtpErlangString(board.getFen()));
-	    } else {
+		} else {
 			throw new IOException("Illegal move.");
 		}
 	}
