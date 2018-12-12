@@ -34,21 +34,33 @@ nextMove(PidJava, CurrentFen) ->
       nextMove(PidJava, CurrentFen);
 
     %The white cannot play that move (illegal move)
+    %TODO : specify errors
     {Pid, error, {TextError}} ->
       io:format("~p~n", [TextError]),
       self() ! {whiteToPlay},
       nextMove(PidJava, CurrentFen);
 
-    %The white can move
+    %The white just moved
     {Pid, whiteMove, {Fen}} ->
       %get the legal moves for the black to play
       {PidJava, 'master@RICC-SP3'} ! {self(), getLegalMoves, {Fen}},
       nextMove(PidJava, Fen);
 
-    %Get legal moves for the white to play
+    %Recived legal moves for the black to play
     {Pid, getLegalMoves, {ListFen}} ->
       io:format("LIST FEN RECU : ~p~n", [ListFen])
+      
   end.
+
+nextStep(PidJava, BaseFen, Value, Counter) ->
+  receive
+    {start} ->
+      {PidJava, 'master@RICC-SP3'} ! {self(), getLegalMoves, {BaseFen}},
+      nextStep(PidJava, BaseFen, Value, Counter-1);
+    %Recived legal moves for the black to play
+    {Pid, getLegalMoves, {ListFen}} ->
+      io:format("LIST FEN RECU : ~p~n", [ListFen])
+  end.  
 
 
 
