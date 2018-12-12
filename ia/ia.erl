@@ -8,7 +8,19 @@
 %%%-------------------------------------------------------------------
 -module(ia).
 %% API
--export([master/1, nextMove/3, nextStep/5, spawnProcesses/3]).
+-export([master/1, nextMove/3, nextStep/5, spawnProcesses/3, evaluate/1]).
+
+pieceValue($p) -> 1;
+pieceValue($n) -> 3;
+pieceValue($b) -> 3;
+pieceValue($r) -> 5;
+pieceValue($q) -> 9;
+pieceValue($P) -> -1;
+pieceValue($N) -> -3;
+pieceValue($B) -> -3;
+pieceValue($R) -> -5;
+pieceValue($Q) -> -9;
+pieceValue(_) -> 0.
 
 master(TimeToPlay) ->
   %Save the master pid to pass messages
@@ -59,10 +71,11 @@ nextStep(PidMaster, PidJava, BaseFen, Value, Counter) ->
   receive
     {start} ->
       {PidJava, 'master@RICC-SP3'} ! {self(), getLegalMoves, {BaseFen}},
-      nextStep(PidJava, BaseFen, Value, Counter-1);
+      nextStep(PidMaster, PidJava, BaseFen, Value, Counter-1);
     %Received legal moves for the black to play
     {Pid, getLegalMoves, {ListFen}} ->
-      io:format("LIST FEN RECU : ~p~n", [ListFen])
+      io:format("LIST FEN RECU : ~p~n", [[evaluate(Fen) || Fen <- ListFen]])
+      
   end.  
 
 spawnProcesses(PidMaster, PidJava,[]) -> ok;
@@ -71,5 +84,12 @@ spawnProcesses(PidMaster, PidJava, [H|T]) ->
   Process ! {start},
   io:format("Process spawned.~n", []),
   spawnProcesses(PidMaster,PidJava, T).
+
+evaluate([32|_]) -> 0;
+evaluate([H|T]) -> 
+  io:format("H: ~w~n", [[H|T]]),
+  pieceValue(H) + evaluate(T).
+
+
 
 
