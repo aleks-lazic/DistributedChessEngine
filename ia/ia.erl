@@ -8,11 +8,14 @@
 %%%-------------------------------------------------------------------
 -module(ia).
 %% API
--export([master/1]).
+-export([master/1, nextMove/3, nextStep/5, spawnProcesses/3]).
 
 master(TimeToPlay) ->
+  %Save the master pid to pass messages
+  PidMaster = self(),
+  io:format("PID MASTER : ~p~n", [PidMaster]),
 
-  %Register the java pid to pass messages
+  %Save the java pid to pass messages
   PidJava = java,
 
   %Fen for the initial board's state
@@ -22,45 +25,51 @@ master(TimeToPlay) ->
   self() ! {whiteToPlay},
 
   %start listening for the messages
-  nextMove(PidJava, CurrentFen).
+  nextMove(PidMaster, PidJava, CurrentFen).
 
-nextMove(PidJava, CurrentFen) ->
+nextMove(PidMaster, PidJava, CurrentFen) ->
   receive
     %Beginning of the game, white starts
     {whiteToPlay} ->
       {ok, Term} = io:read("white to play, enter a move : "),
       io:format("White play : ~p~n", [Term]),
-      {PidJava, 'master@RICC-SP3'} ! {self(), move, {CurrentFen, Term}},
-      nextMove(PidJava, CurrentFen);
+      {PidJava, 'master@RICC-SP3'} ! {self(), whiteMove, {CurrentFen, Term}},
+      nextMove(PidMaster, PidJava, CurrentFen);
 
     %The white cannot play that move (illegal move)
     %TODO : specify errors
-    {Pid, error, {TextError}} ->
+    {_, error, {TextError}} ->
       io:format("~p~n", [TextError]),
       self() ! {whiteToPlay},
-      nextMove(PidJava, CurrentFen);
+      nextMove(PidMaster, PidJava, CurrentFen);
 
     %The white just moved
-    {Pid, whiteMove, {Fen}} ->
+    {_, whiteMove, {Fen}} ->
       %get the legal moves for the black to play
       {PidJava, 'master@RICC-SP3'} ! {self(), getLegalMoves, {Fen}},
-      nextMove(PidJava, Fen);
+      nextMove(PidMaster, PidJava, Fen);
 
     %Recived legal moves for the black to play
-    {Pid, getLegalMoves, {ListFen}} ->
-      io:format("LIST FEN RECU : ~p~n", [ListFen])
-      
+    {_, getLegalMoves, {ListFen}} ->
+      io:format("LIST FEN RECU : ~p~n", [ListFen]),
+      spawnProcesses(PidMaster, PidJava, ListFen)
   end.
 
-nextStep(PidJava, BaseFen, Value, Counter) ->
+nextStep(PidMaster, PidJava, BaseFen, Value, Counter) ->
   receive
     {start} ->
       {PidJava, 'master@RICC-SP3'} ! {self(), getLegalMoves, {BaseFen}},
       nextStep(PidJava, BaseFen, Value, Counter-1);
-    %Recived legal moves for the black to play
+    %Received legal moves for the black to play
     {Pid, getLegalMoves, {ListFen}} ->
       io:format("LIST FEN RECU : ~p~n", [ListFen])
   end.  
 
+spawnProcesses(PidMaster, PidJava,[]) -> ok;
+spawnProcesses(PidMaster, PidJava, [H|T]) ->
+  Process = spawn(?MODULE, nextStep, [PidMaster, PidJava, H, 0, 3]),
+  Process ! {start},
+  io:format("Process spawned.~n", []),
+  spawnProcesses(PidMaster,PidJava, T).
 
 
