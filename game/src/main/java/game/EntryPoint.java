@@ -1,8 +1,9 @@
 package game;
 
-import java.io.*;
 import com.ericsson.otp.erlang.*;
 import com.github.bhlangonijr.chesslib.move.MoveGeneratorException;
+
+import java.io.IOException;
 
 
 public class EntryPoint {

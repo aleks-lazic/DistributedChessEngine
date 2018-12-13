@@ -8,16 +8,16 @@
 %%%-------------------------------------------------------------------
 -module(ia).
 %% API
--import(lists, [max/1]).
--export([master/1, nextMove/3, nextStep/5, spawnProcesses/3, evaluate/1]).
+-import(lists, [max/1, nth/2]).
+-export([master/1, nextMove/4, nextStep/6, spawnProcesses/4, evaluate/1]).
 
 master(TimeToPlay) ->
   %Save the master pid to pass messages
   PidMaster = self(),
-  io:format("PID MASTER : ~p~n", [PidMaster]),
 
   %Save the java pid to pass messages
   PidJava = java,
+  HostJava = 'master@aleks',
 
   %Fen for the initial board state
   CurrentFen = "rnbqkbnr/pppppppp/8/8/8/8/PPPPPPPP/RNBQKBNR w KQkq - 0 1",
@@ -26,56 +26,59 @@ master(TimeToPlay) ->
   self() ! {whiteToPlay},
 
   %start listening for the messages
-  nextMove(PidMaster, PidJava, CurrentFen).
+  nextMove(PidMaster, PidJava, HostJava, CurrentFen).
 
-nextMove(PidMaster, PidJava, CurrentFen) ->
+nextMove(PidMaster, PidJava, HostJava, CurrentFen) ->
   receive
     %Beginning of the game, white starts
     {whiteToPlay} ->
       {ok, Term} = io:read("white to play, enter a move : "),
       io:format("White play : ~p~n", [Term]),
-      {PidJava, 'master@RICC-SP3'} ! {self(), whiteMove, {CurrentFen, Term}},
-      nextMove(PidMaster, PidJava, CurrentFen);
+      {PidJava, HostJava} ! {self(), whiteMove, {CurrentFen, Term}},
+      nextMove(PidMaster, PidJava, HostJava,CurrentFen);
 
     %The white cannot play that move (illegal move)
     %TODO : specify errors
     {_, error, {TextError}} ->
       io:format("~p~n", [TextError]),
       self() ! {whiteToPlay},
-      nextMove(PidMaster, PidJava, CurrentFen);
+      nextMove(PidMaster, PidJava, HostJava,CurrentFen);
 
     %The white just moved
     {_, whiteMove, {Fen}} ->
       %get the legal moves for the black to play
-      {PidJava, 'master@RICC-SP3'} ! {self(), getLegalMoves, {Fen}},
-      nextMove(PidMaster, PidJava, Fen);
+      {PidJava, HostJava} ! {self(), getLegalMoves, {Fen}},
+      nextMove(PidMaster, PidJava, HostJava,Fen);
 
     %Recived legal moves for the black to play
     {_, getLegalMoves, {ListFen}} ->
       io:format("LIST FEN RECU : ~p~n", [ListFen]),
-      spawnProcesses(PidMaster, PidJava, ListFen)
+      spawnProcesses(PidMaster, PidJava, HostJava,ListFen)
   end.
 
-nextStep(PidMaster, PidJava, BaseFen, Value, Counter) ->
+nextStep(PidMaster, PidJava, HostJava,BaseFen, Value, Counter) ->
   receive
+    %The black player can start searching for the best move
     {start} ->
-      {PidJava, 'master@RICC-SP3'} ! {self(), getLegalMoves, {BaseFen}},
-      nextStep(PidMaster, PidJava, BaseFen, Value, Counter-1);
+      {PidJava, HostJava} ! {self(), getLegalMoves, {BaseFen}},
+      nextStep(PidMaster, PidJava, HostJava, BaseFen, Value, Counter-1);
+
     %Received legal moves for the black to play
     {Pid, getLegalMoves, {ListFen}} ->
       Moves = [{Fen, evaluate(Fen)} || Fen <- ListFen],
       MaxEval = max([Eval || {_, Eval} <- Moves]),
-      GoodMoves = [Fen || {Fen, Eval} <- Moves, Eval = MaxEval],
+      GoodMoves = [Fen || {Fen, Eval} <- Moves, Eval == MaxEval],
       RandIndex = rand:uniform(length(GoodMoves)),
-	    FinalMove = lists:nth(RandIndex, GoodMoves)
-  end.  
+      FinalMove = nth(RandIndex, GoodMoves),
+      io:format("Final Move : ~p~n", [FinalMove])
+  end.
 
-spawnProcesses(_, _, []) -> ok;
-spawnProcesses(PidMaster, PidJava, [H|T]) ->
-  Process = spawn(?MODULE, nextStep, [PidMaster, PidJava, H, 0, 3]),
+spawnProcesses(_, _, _, []) -> ok;
+spawnProcesses(PidMaster, PidJava, HostJava,[H|T]) ->
+  Process = spawn(?MODULE, nextStep, [PidMaster, PidJava, HostJava,H, 0, 3]),
   Process ! {start},
   io:format("Process spawned.~n", []),
-  spawnProcesses(PidMaster,PidJava, T).
+  spawnProcesses(PidMaster,PidJava,HostJava, T).
 
 % Evaluate the balance of a given board
 % Positive result means that the black player have advantage
