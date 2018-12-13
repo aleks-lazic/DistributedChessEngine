@@ -50,7 +50,7 @@ nextMove(PidMaster, PidJava, HostJava, CurrentFen) ->
       {PidJava, HostJava} ! {self(), getLegalMoves, {Fen}},
       nextMove(PidMaster, PidJava, HostJava,Fen);
 
-    %Recived legal moves for the black to play
+    %Received legal moves for the black to play
     {_, getLegalMoves, {ListFen}} ->
       io:format("LIST FEN RECU : ~p~n", [ListFen]),
       spawnProcesses(PidMaster, PidJava, HostJava,ListFen)
@@ -65,6 +65,7 @@ nextStep(PidMaster, PidJava, HostJava,BaseFen, Value, Counter) ->
 
     %Received legal moves for the black to play
     {Pid, getLegalMoves, {ListFen}} ->
+      %Calculate evaluation depending on FEN
       Moves = [{Fen, evaluate(Fen)} || Fen <- ListFen],
       MaxEval = max([Eval || {_, Eval} <- Moves]),
       GoodMoves = [Fen || {Fen, Eval} <- Moves, Eval == MaxEval],
