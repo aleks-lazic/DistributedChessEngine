@@ -8,19 +8,8 @@
 %%%-------------------------------------------------------------------
 -module(ia).
 %% API
+-import(lists, [max/1]).
 -export([master/1, nextMove/3, nextStep/5, spawnProcesses/3, evaluate/1]).
-
-pieceValue($p) -> 1;
-pieceValue($n) -> 3;
-pieceValue($b) -> 3;
-pieceValue($r) -> 5;
-pieceValue($q) -> 9;
-pieceValue($P) -> -1;
-pieceValue($N) -> -3;
-pieceValue($B) -> -3;
-pieceValue($R) -> -5;
-pieceValue($Q) -> -9;
-pieceValue(_) -> 0.
 
 master(TimeToPlay) ->
   %Save the master pid to pass messages
@@ -30,7 +19,7 @@ master(TimeToPlay) ->
   %Save the java pid to pass messages
   PidJava = java,
 
-  %Fen for the initial board's state
+  %Fen for the initial board state
   CurrentFen = "rnbqkbnr/pppppppp/8/8/8/8/PPPPPPPP/RNBQKBNR w KQkq - 0 1",
 
   %Send message to start the game
@@ -74,22 +63,36 @@ nextStep(PidMaster, PidJava, BaseFen, Value, Counter) ->
       nextStep(PidMaster, PidJava, BaseFen, Value, Counter-1);
     %Received legal moves for the black to play
     {Pid, getLegalMoves, {ListFen}} ->
-      io:format("LIST FEN RECU : ~p~n", [[evaluate(Fen) || Fen <- ListFen]])
-      
+      Moves = [{Fen, evaluate(Fen)} || Fen <- ListFen],
+      MaxEval = max([Eval || {_, Eval} <- Moves]),
+      GoodMoves = [Fen || {Fen, Eval} <- Moves, Eval = MaxEval],
+      RandIndex = rand:uniform(length(GoodMoves)),
+	    FinalMove = lists:nth(RandIndex, GoodMoves)
   end.  
 
-spawnProcesses(PidMaster, PidJava,[]) -> ok;
+spawnProcesses(_, _, []) -> ok;
 spawnProcesses(PidMaster, PidJava, [H|T]) ->
   Process = spawn(?MODULE, nextStep, [PidMaster, PidJava, H, 0, 3]),
   Process ! {start},
   io:format("Process spawned.~n", []),
   spawnProcesses(PidMaster,PidJava, T).
 
+% Evaluate the balance of a given board
+% Positive result means that the black player have advantage
+% Negative result means that the white player have advantage
+% Null (=zero) result means that the board is balanced
 evaluate([32|_]) -> 0;
-evaluate([H|T]) -> 
-  io:format("H: ~w~n", [[H|T]]),
-  pieceValue(H) + evaluate(T).
+evaluate([H|T]) -> pieceValue(H) + evaluate(T).
 
-
-
-
+% Arbitral values of chess pieces used for evaluation
+pieceValue($p) -> 1;
+pieceValue($n) -> 3;
+pieceValue($b) -> 3;
+pieceValue($r) -> 5;
+pieceValue($q) -> 9;
+pieceValue($P) -> -1;
+pieceValue($N) -> -3;
+pieceValue($B) -> -3;
+pieceValue($R) -> -5;
+pieceValue($Q) -> -9;
+pieceValue(_) -> 0.
