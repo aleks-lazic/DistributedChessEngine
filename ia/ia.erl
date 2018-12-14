@@ -68,10 +68,10 @@ nextStep(PidMaster, PidJava, HostJava,BaseFen, Value, Counter) ->
       %Calculate evaluation depending on FEN
       Moves = [{Fen, evaluate(Fen)} || Fen <- ListFen],
       MaxEval = max([Eval || {_, Eval} <- Moves]),
-      GoodMoves = [Fen || {Fen, Eval} <- Moves, Eval == MaxEval],
-      RandIndex = rand:uniform(length(GoodMoves)),
-      FinalMove = nth(RandIndex, GoodMoves),
-      io:format("Final Move : ~p~n", [FinalMove])
+      GoodFens = [Fen || {Fen, Eval} <- Moves, Eval == MaxEval],
+      RandIndex = rand:uniform(length(GoodFens)),
+      FinalFen = nth(RandIndex, GoodFens),
+      io:format("Final Move : ~p~n", [{FinalFen, MaxEval}])
   end.
 
 spawnProcesses(_, _, _, []) -> ok;
