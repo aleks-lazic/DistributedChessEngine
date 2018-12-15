@@ -1,6 +1,8 @@
 package game;
 
 import java.io.*;
+import java.util.*;
+
 import com.ericsson.otp.erlang.*;
 import com.github.bhlangonijr.chesslib.*;
 import com.github.bhlangonijr.chesslib.move.*;
@@ -9,20 +11,24 @@ public class Chess {
 	
 	public static OtpErlangTuple getLegalMoves(OtpErlangTuple tuple) throws MoveGeneratorException {
 		System.out.println("Tuple: " + tuple);
-		String fen = tuple.elementAt(0).toString().replace("\"", "");
+		String fen = tuple.elementAt(3).toString().replace("\"", "").replace("\'", "");
 		Board board = new Board();
 		board.loadFromFen(fen);
 		MoveList moves = MoveGenerator.generateLegalMoves(board);
-		OtpErlangString[] results = new OtpErlangString[moves.size()];
+		OtpErlangTuple[] results = new OtpErlangTuple[moves.size()];
 		for (int i = 0; i < results.length; i++) {
 			board.loadFromFen(fen);
 			board.doMove(moves.get(i));
-			results[i] = new OtpErlangString(board.getFen());
+			OtpErlangString[] element = {new OtpErlangString(moves.get(i).toString()), new OtpErlangString(board.getFen())};
+			results[i] = new OtpErlangTuple(element);
 		}
-		return new OtpErlangTuple(new OtpErlangList(results));
+		ArrayList<OtpErlangObject> response = new ArrayList<OtpErlangObject>();
+		Collections.addAll(response, tuple.elements());
+		response.add(new OtpErlangList(results));
+		return new OtpErlangTuple(response.toArray(new OtpErlangObject[response.size()]));
 	}
 	
-	public static OtpErlangTuple move(OtpErlangTuple tuple) throws IOException {
+	public static OtpErlangTuple move(OtpErlangTuple tuple) throws IOException, RuntimeException {
 		System.out.println("Tuple: " + tuple);
 		String fen = tuple.elementAt(0).toString().replace("\"", "");
 		Move move = new Move(tuple.elementAt(1).toString().replace("\"", ""), null);

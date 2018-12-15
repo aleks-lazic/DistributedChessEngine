@@ -102,20 +102,20 @@ receive
         % computation of the chess position tree by taking a position to extend
         {Father_fen, Move, Rank, Fen, Eval} = tuple_space:in(TupleSpace, {string, string, integer, string, boolean}),
         % send java a request about move generation {pid_sender, task, {args}}
-        {JavaProcess, Host} ! {self(), extend, {Father_fen, Move, Rank, FEN, Eval},
+        {JavaProcess, Host} ! {self(), extend, {Father_fen, Move, Rank, FEN, Eval}},
         explorator(JavaProcess, Host, MasterPID, DSearch+1, TupleSpace);
 
-    {Pid, extended, {GFather_fen, PreviousMove, Father_fen, Rank, Eval, [{Move, FEN}|T]} ->
+    {Pid, extended, {GFather_fen, PreviousMove, Father_fen, Rank, Eval, [{Move, FEN}|T]}} ->
         % this msg is send by the java process
         % GFather_fen, Father_fen, PreviousMove, Rank, EVal are the args send by explorator() to the java move generator
 
         % the first new position is put in the linda
         linda_kernel:out(TupleSpace, {Father_fen, Move, Rank+1, FEN}),
         % "recursive" put the rest in the tuple space
-        self() ! {self() extended, {GFather_fen, PreviousMove, Father_fen, Rank, Eval, [T]}},
+        self() ! {self(), extended, {GFather_fen, PreviousMove, Father_fen, Rank, Eval, [T]}},
         explorator(JavaProcess, Host, MasterPID, DSearch, TupleSpace);
 
-    {Pid, extended, {GFather_fen, PreviousMove, Father_fen Rank, Eval, []} ->
+    {Pid, extended, {GFather_fen, PreviousMove, Father_fen, Rank, Eval, []}} ->
         % when the list is empty, all possible position from Father_fen have been calculated and put in the tupleSpace
         % put back the tuple that was taken out of the tuple space, now the position has been extended !
         linda_kernel:out(TupleSpace, {GFather_fen, PreviousMove, Rank, FEN, Eval, true}),
@@ -124,13 +124,9 @@ receive
         explorator(JavaProcess, Host, MasterPID, DSearch, TupleSpace);
 end.
 
-
-
 %% ----------------------------------------------------------------------------------------------
 %% evaluation is the process in charge of judging the quality of a position
 %% ----------------------------------------------------------------------------------------------
-⁄
-
 evaluation(MasterPID, TupleSpace)
     receive
     {Pid, evaluate} ->

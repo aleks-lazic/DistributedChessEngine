@@ -13,6 +13,7 @@ public class EntryPoint {
 
 	public static void main(String[] args) {
 		try {
+			
 			self = new OtpNode("master", "cookie");
 			mbox = self.createMbox("java");
 			OtpErlangObject o;
@@ -47,7 +48,8 @@ public class EntryPoint {
 	public static void sortMsg(OtpErlangPid from, OtpErlangAtom order, OtpErlangTuple tuple) {
 		OtpErlangTuple response = null;
 		switch (order.toString()) {
-			case "getLegalMoves": try {
+			case "extend": try {
+				order = new OtpErlangAtom("extended");
 				response = Chess.getLegalMoves(tuple);
 			} catch (MoveGeneratorException e) {
 				order = new OtpErlangAtom("error");
