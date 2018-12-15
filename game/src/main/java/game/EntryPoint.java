@@ -5,15 +5,14 @@ import com.github.bhlangonijr.chesslib.move.MoveGeneratorException;
 
 import java.io.IOException;
 
-
 public class EntryPoint {
-	
+
 	public static OtpNode self;
 	public static OtpMbox mbox;
 
 	public static void main(String[] args) {
 		try {
-			
+
 			self = new OtpNode("master@diufvm38.unifr.ch", args[0]);
 			mbox = self.createMbox("java");
 			OtpErlangObject o;
@@ -33,52 +32,58 @@ public class EntryPoint {
 						tuple = (OtpErlangTuple) msg.elementAt(2);
 						sortMsg(from, order, tuple);
 					}
-					
+
 				} catch (Exception e) {
 					System.out.println("" + e);
 					e.printStackTrace();
 				}
 			}
-			
+
 		} catch (IOException e) {
 			e.printStackTrace();
 		}
 	}
-	
+
 	public static void sortMsg(OtpErlangPid from, OtpErlangAtom order, OtpErlangTuple tuple) {
 		OtpErlangTuple response = null;
 		switch (order.toString()) {
-			case "getLegalMoves":
-            try {
-                response = Chess.getLegalMoves(tuple);
-            } catch (MoveGeneratorException e) {
-                order = new OtpErlangAtom("error");
-                response = new OtpErlangTuple(new OtpErlangString(e.getMessage()));
-            }
-            break;
-			case "extend": try {
+		case "getLegalMoves":
+			try {
+				response = Chess.getLegalMoves(tuple);
+			} catch (MoveGeneratorException e) {
+				order = new OtpErlangAtom("error");
+				response = new OtpErlangTuple(new OtpErlangString(e.getMessage()));
+			}
+			break;
+		case "extend":
+			try {
 				order = new OtpErlangAtom("extended");
 				response = Chess.extend(tuple);
 			} catch (MoveGeneratorException e) {
 				order = new OtpErlangAtom("error");
 				response = new OtpErlangTuple(new OtpErlangString(e.getMessage()));
-			} break;
-			case "whiteMove": try {
+			}
+			break;
+		case "whiteMove":
+			try {
 				response = Chess.move(tuple);
 			} catch (IOException e) {
 				order = new OtpErlangAtom("error");
 				response = new OtpErlangTuple(new OtpErlangString(e.getMessage()));
-			} break;
-			case "blackMove": try {
+			}
+			break;
+		case "blackMove":
+			try {
 				response = Chess.move(tuple);
 			} catch (IOException e) {
 				order = new OtpErlangAtom("error");
 				response = new OtpErlangTuple(new OtpErlangString(e.getMessage()));
-			} break;
+			}
+			break;
 		default:
 			break;
 		}
-		OtpErlangObject[] msg = {mbox.self(), order, response};
+		OtpErlangObject[] msg = { mbox.self(), order, response };
 		mbox.send(from, new OtpErlangTuple(msg));
 	}
 
