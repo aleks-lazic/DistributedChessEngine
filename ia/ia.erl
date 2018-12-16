@@ -26,7 +26,7 @@ master() ->
 
 whiteTurn(PidMaster, PidJava, HostJava, CurrentFen, Seconds) ->
   receive
-    % White player turn, get avalabile moves
+    % White player turn, get avalabile moves 
     {_, whiteToPlay, {}} ->
       io:format("Current Fen : ~p~n", [CurrentFen]),
       {PidJava, HostJava} ! {PidMaster, getLegalMoves, {CurrentFen}},
@@ -35,7 +35,7 @@ whiteTurn(PidMaster, PidJava, HostJava, CurrentFen, Seconds) ->
     {_, getLegalMoves, {ListMoves}} ->
       io:format("White player turn, avalible moves : ~p~n", [ListMoves]),
       if % If no moves are allowed = checkmate
-        length(ListMoves) == 0 ->
+        length(ListMoves) == 0 -> 
           io:format("Checkmate, you lost.~n", []);
         true ->
           {ok, Term} = io:read("Enter a move : "),
@@ -47,7 +47,7 @@ whiteTurn(PidMaster, PidJava, HostJava, CurrentFen, Seconds) ->
       % Timer
       {Mega, Sec, Micro} = os:timestamp(),
       BeginTimeMillis = (Mega*1000000 + Sec)*1000 + round(Micro/1000),
-      % Get the legal moves (as FENs) for the black player
+      % Get the legal moves (as FENs) for the black player 
       {PidJava, HostJava} ! {PidMaster, getLegalFens, {Fen}},
       whiteTurn(PidMaster, PidJava, HostJava, CurrentFen, BeginTimeMillis);
     % Error, the white player cannot play that move (illegal move)
@@ -58,7 +58,7 @@ whiteTurn(PidMaster, PidJava, HostJava, CurrentFen, Seconds) ->
     % Received legal moves (as FENs) for the black player
     {_, getLegalFens, {ListFen}} ->
       if % If no moves are allowed = checkmate
-        length(ListFen) == 0 ->
+        length(ListFen) == 0 -> 
           io:format("Checkmate, you win.~n", []);
         true ->
           spawnProcesses(PidMaster, PidJava, HostJava, ListFen),
@@ -79,10 +79,10 @@ nextMove(PidMaster, PidJava, HostJava, CurrentFenHistory, Value, Counter) ->
     {_, getLegalFens, {_}} when Counter == 0 ->
       PidMaster ! {self(), blackFinalMove, {CurrentFenHistory, Value}};
     % Evaluate a white move
-    {_, getLegalFens, {ListFen}} when Counter rem 2 == 0 ->
+    {_, getLegalFens, {ListFen}} when Counter rem 2 == 0 -> 
       evaluatewhiteTurn(PidMaster, PidJava, HostJava, CurrentFenHistory, Value, Counter - 1, ListFen);
     % Evaluate a black move
-    {_, getLegalFens, {ListFen}} when Counter rem 2 /= 0 ->
+    {_, getLegalFens, {ListFen}} when Counter rem 2 /= 0 -> 
       evaluateBlackMove(PidMaster, PidJava, HostJava, CurrentFenHistory, Value, Counter - 1, ListFen)
   end.
 
@@ -90,7 +90,7 @@ evaluateBlackMove(PidMaster, PidJava, HostJava, CurrentFenHistory, Value, Counte
   % Evaluation
   Moves = [{Fen, evaluate(Fen)} || Fen <- ListFen],
   if % No moves allowed = checkmate
-    length(Moves) == 0 ->
+    length(Moves) == 0 -> 
       MaxEval = 5 + (-5 * Counter * Counter),
       PidMaster ! {self(), blackFinalMove, {CurrentFenHistory, MaxEval + Value}};
     true ->
@@ -107,7 +107,7 @@ evaluatewhiteTurn(PidMaster, PidJava, HostJava, CurrentFenHistory, Value, Counte
   % Evaluation
   Moves = [{Fen, evaluate(Fen)} || Fen <- ListFen],
   if % No moves allowed = checkmate
-    length(Moves) == 0 ->
+    length(Moves) == 0 -> 
       MinEval = 5 + (5 * Counter * Counter),
       PidMaster ! {self(), blackFinalMove, {CurrentFenHistory, MinEval + Value}};
     true ->
@@ -139,13 +139,9 @@ determinateFinalMove(PidMaster, PidJava, HostJava, NbProcesses, MessagesReceived
       EndTimeMillis = (Mega*1000000 + Sec)*1000 + round(Micro/1000),
       TotalTimeToPlay = (EndTimeMillis - Time)/1000,
       io:format("Time used to calculate black move : ~p seconds ~n", [TotalTimeToPlay]),
-
-      %Send message for the white to play
-      PidMaster ! {whiteToPlay},
-
-      %start listening for the messages
-      nextMove(PidMaster, PidJava, HostJava, FenPlayed, 0)
-
+      % It's white player turn, with the new fen
+      PidMaster ! {self(), whiteToPlay, {}},
+      whiteTurn(PidMaster, PidJava, HostJava, FenPlayed, 0)
   end.
 
 % Evaluate the balance of a given board
