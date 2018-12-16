@@ -11,7 +11,7 @@
 -export([master/3, master/2, whiteTurn/6, nextMove/6, determinateFinalMove/8]).
 
 % Starter function
-master(HostJava, CurrentFen, DepthSearch) ->
+master(HostJava, DepthSearch, CurrentFen) ->
   % Save the master pid to pass messages
   PidMaster = self(),
   % Save the java pid to pass messages

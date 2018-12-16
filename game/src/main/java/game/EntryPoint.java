@@ -12,8 +12,8 @@ public class EntryPoint {
 
 	public static void main(String[] args) {
 
-		if(args.length == 0){
-			System.out.println("Please, enter the cookie as the first parameter !");
+		if(args.length < 2){
+			System.out.println("Please, enter the hostname and the cookie as parameters !");
 			return;
 		}
 
