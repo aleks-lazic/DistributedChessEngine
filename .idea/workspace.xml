@@ -7,27 +7,9 @@
   </component>
   <component name="ChangeListManager">
     <list default="true" id="2f99ce82-8c54-4f4b-86c7-bc749a6a215a" name="Default Changelist" comment="">
-      <change afterPath="$PROJECT_DIR$/ia/chessfold/chessfold.erl" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/ia/chessfold/chessfold.hrl" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/ia/linda/.gitignore" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/ia/linda/Emakefile" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/ia/linda/README.md" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/ia/linda/pylindastable.txt" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/ia/linda/results.txt" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/ia/linda/results2.txt" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/ia/linda/src/deadlock.erl" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/ia/linda/src/examples/addition.erl" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/ia/linda/src/examples/deadlock_cycle.erl" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/ia/linda/src/examples/deadlock_example.erl" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/ia/linda/src/examples/profiling.erl" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/ia/linda/src/examples/stable_marriage.erl" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/ia/linda/src/linda_kernel.erl" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/ia/linda/src/template.erl" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/ia/linda/src/tuple_space.erl" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/ia/linda/test/template_tests.erl" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/.idea/workspace.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/workspace.xml" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/game/pom.xml" beforeDir="false" afterPath="$PROJECT_DIR$/game/pom.xml" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/ia/.hosts.erlang" beforeDir="false" afterPath="$PROJECT_DIR$/ia/.hosts.erlang" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/game/src/main/java/game/EntryPoint.java" beforeDir="false" afterPath="$PROJECT_DIR$/game/src/main/java/game/EntryPoint.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/ia/ia.erl" beforeDir="false" afterPath="$PROJECT_DIR$/ia/ia.erl" afterDir="false" />
     </list>
     <ignored path="$PROJECT_DIR$/target/" />
     <ignored path="$PROJECT_DIR$/game/target/" />
@@ -52,70 +34,7 @@
     <select />
   </component>
   <component name="FileEditorManager">
-    <leaf SIDE_TABS_SIZE_LIMIT_KEY="300">
-      <file pinned="false" current-in-tab="false">
-        <entry file="file://$PROJECT_DIR$/game/pom.xml">
-          <provider selected="true" editor-type-id="text-editor">
-            <state relative-caret-position="357">
-              <caret line="17" column="41" selection-start-line="17" selection-start-column="41" selection-end-line="17" selection-end-column="41" />
-            </state>
-          </provider>
-        </entry>
-      </file>
-      <file pinned="false" current-in-tab="false">
-        <entry file="file://$PROJECT_DIR$/game/src/main/java/game/Chess.java">
-          <provider selected="true" editor-type-id="text-editor">
-            <state relative-caret-position="84">
-              <caret line="7" column="13" selection-start-line="7" selection-start-column="13" selection-end-line="7" selection-end-column="13" />
-            </state>
-          </provider>
-        </entry>
-      </file>
-      <file pinned="false" current-in-tab="false">
-        <entry file="file://$PROJECT_DIR$/game/src/main/java/game/EntryPoint.java">
-          <provider selected="true" editor-type-id="text-editor">
-            <state relative-caret-position="252">
-              <caret line="15" column="18" selection-start-line="15" selection-start-column="18" selection-end-line="15" selection-end-column="18" />
-              <folding>
-                <element signature="imports" expanded="true" />
-              </folding>
-            </state>
-          </provider>
-        </entry>
-      </file>
-      <file pinned="false" current-in-tab="false">
-        <entry file="file://$PROJECT_DIR$/ia/ia.erl">
-          <provider selected="true" editor-type-id="text-editor">
-            <state relative-caret-position="21">
-              <caret line="48" column="19" selection-start-line="48" selection-start-column="19" selection-end-line="48" selection-end-column="19" />
-            </state>
-          </provider>
-        </entry>
-      </file>
-      <file pinned="false" current-in-tab="false">
-        <entry file="file://$PROJECT_DIR$/ia/chessfold/chessfold.erl">
-          <provider selected="true" editor-type-id="text-editor">
-            <state relative-caret-position="21">
-              <caret line="486" column="24" selection-start-line="486" selection-start-column="24" selection-end-line="486" selection-end-column="24" />
-            </state>
-          </provider>
-        </entry>
-      </file>
-      <file pinned="false" current-in-tab="false">
-        <entry file="file://$PROJECT_DIR$/ia/linda/src/examples/addition.erl">
-          <provider selected="true" editor-type-id="text-editor" />
-        </entry>
-      </file>
-      <file pinned="false" current-in-tab="true">
-        <entry file="file://$PROJECT_DIR$/ia/iaTS.erl">
-          <provider selected="true" editor-type-id="text-editor">
-            <state relative-caret-position="-192">
-              <caret line="2" lean-forward="true" selection-start-line="2" selection-end-line="2" />
-            </state>
-          </provider>
-        </entry>
-      </file>
-    </leaf>
+    <leaf SIDE_TABS_SIZE_LIMIT_KEY="300" />
   </component>
   <component name="FileTemplateManagerImpl">
     <option name="RECENT_TEMPLATES">
@@ -123,6 +42,14 @@
         <option value="Erlang Module" />
       </list>
     </option>
+  </component>
+  <component name="FindInProjectRecents">
+    <findStrings>
+      <find>determinateFinalMove</find>
+      <find>calculateNextMove</find>
+      <find>io:for</find>
+      <find>now</find>
+    </findStrings>
   </component>
   <component name="Git.Settings">
     <option name="RECENT_GIT_ROOT_PATH" value="$PROJECT_DIR$" />
@@ -132,16 +59,16 @@
       <list>
         <option value="$PROJECT_DIR$/.gitignore" />
         <option value="$PROJECT_DIR$/EntryPoint.java" />
-        <option value="$PROJECT_DIR$/ia/ia_david.erl" />
-        <option value="$PROJECT_DIR$/game/src/main/java/game/EntryPoint.java" />
         <option value="$PROJECT_DIR$/pom.xml" />
         <option value="$PROJECT_DIR$/game/src/main/java/META-INF/MANIFEST.MF" />
         <option value="$PROJECT_DIR$/game/pom.xml" />
-        <option value="$PROJECT_DIR$/ia/.hosts.erlang" />
-        <option value="$PROJECT_DIR$/ia/ia.erl" />
         <option value="$PROJECT_DIR$/ia/chessfold/chessfold.erl" />
         <option value="$PROJECT_DIR$/ia/ia_TS.erl" />
         <option value="$PROJECT_DIR$/ia/iaTS.erl" />
+        <option value="$PROJECT_DIR$/ia/.hosts.erlang" />
+        <option value="$PROJECT_DIR$/ia/ia_david.erl" />
+        <option value="$PROJECT_DIR$/game/src/main/java/game/EntryPoint.java" />
+        <option value="$PROJECT_DIR$/ia/ia.erl" />
       </list>
     </option>
   </component>
@@ -163,8 +90,7 @@
       <select />
     </treeState>
   </component>
-  <component name="ProjectFrameBounds" extendedState="7">
-    <option name="x" value="960" />
+  <component name="ProjectFrameBounds" extendedState="6">
     <option name="y" value="34" />
     <option name="width" value="960" />
     <option name="height" value="1015" />
@@ -174,6 +100,7 @@
       <foldersAlwaysOnTop value="true" />
     </navigator>
     <panes>
+      <pane id="PackagesPane" />
       <pane id="ProjectPane">
         <subPane>
           <expand>
@@ -184,33 +111,54 @@
             <path>
               <item name="DistributedChessEngine" type="b2602c69:ProjectViewProjectNode" />
               <item name="DistributedChessEngine" type="462c0819:PsiDirectoryNode" />
-              <item name="ia" type="462c0819:PsiDirectoryNode" />
+              <item name="game" type="462c0819:PsiDirectoryNode" />
             </path>
             <path>
               <item name="DistributedChessEngine" type="b2602c69:ProjectViewProjectNode" />
               <item name="DistributedChessEngine" type="462c0819:PsiDirectoryNode" />
-              <item name="ia" type="462c0819:PsiDirectoryNode" />
-              <item name="linda" type="462c0819:PsiDirectoryNode" />
-            </path>
-            <path>
-              <item name="DistributedChessEngine" type="b2602c69:ProjectViewProjectNode" />
-              <item name="DistributedChessEngine" type="462c0819:PsiDirectoryNode" />
-              <item name="ia" type="462c0819:PsiDirectoryNode" />
-              <item name="linda" type="462c0819:PsiDirectoryNode" />
+              <item name="game" type="462c0819:PsiDirectoryNode" />
               <item name="src" type="462c0819:PsiDirectoryNode" />
+            </path>
+            <path>
+              <item name="DistributedChessEngine" type="b2602c69:ProjectViewProjectNode" />
+              <item name="DistributedChessEngine" type="462c0819:PsiDirectoryNode" />
+              <item name="game" type="462c0819:PsiDirectoryNode" />
+              <item name="src" type="462c0819:PsiDirectoryNode" />
+              <item name="main" type="462c0819:PsiDirectoryNode" />
+            </path>
+            <path>
+              <item name="DistributedChessEngine" type="b2602c69:ProjectViewProjectNode" />
+              <item name="DistributedChessEngine" type="462c0819:PsiDirectoryNode" />
+              <item name="game" type="462c0819:PsiDirectoryNode" />
+              <item name="src" type="462c0819:PsiDirectoryNode" />
+              <item name="main" type="462c0819:PsiDirectoryNode" />
+              <item name="java" type="462c0819:PsiDirectoryNode" />
+            </path>
+            <path>
+              <item name="DistributedChessEngine" type="b2602c69:ProjectViewProjectNode" />
+              <item name="DistributedChessEngine" type="462c0819:PsiDirectoryNode" />
+              <item name="game" type="462c0819:PsiDirectoryNode" />
+              <item name="src" type="462c0819:PsiDirectoryNode" />
+              <item name="main" type="462c0819:PsiDirectoryNode" />
+              <item name="java" type="462c0819:PsiDirectoryNode" />
+              <item name="game" type="462c0819:PsiDirectoryNode" />
+            </path>
+            <path>
+              <item name="DistributedChessEngine" type="b2602c69:ProjectViewProjectNode" />
+              <item name="DistributedChessEngine" type="462c0819:PsiDirectoryNode" />
+              <item name="ia" type="462c0819:PsiDirectoryNode" />
             </path>
           </expand>
           <select />
         </subPane>
       </pane>
       <pane id="Scope" />
-      <pane id="PackagesPane" />
     </panes>
   </component>
   <component name="PropertiesComponent">
     <property name="WebServerToolWindowFactoryState" value="false" />
     <property name="aspect.path.notification.shown" value="true" />
-    <property name="com.android.tools.idea.instantapp.provision.ProvisionBeforeRunTaskProvider.myTimeStamp" value="1544791379972" />
+    <property name="com.android.tools.idea.instantapp.provision.ProvisionBeforeRunTaskProvider.myTimeStamp" value="1544986276321" />
     <property name="last_opened_file_path" value="$PROJECT_DIR$/game/pom.xml" />
     <property name="nodejs_interpreter_path.stuck_in_default_project" value="undefined stuck path" />
     <property name="nodejs_npm_path_reset_for_default_project" value="true" />
@@ -218,7 +166,7 @@
     <property name="project.structure.last.edited" value="Artifacts" />
     <property name="project.structure.proportion" value="0.15" />
     <property name="project.structure.side.proportion" value="0.2" />
-    <property name="settings.editor.selected.configurable" value="MavenSettings" />
+    <property name="settings.editor.selected.configurable" value="Erlang External Tools" />
   </component>
   <component name="RecentsManager">
     <key name="CopyFile.RECENT_KEYS">
@@ -291,17 +239,37 @@
       <workItem from="1544703469684" duration="4564000" />
       <workItem from="1544708693318" duration="1909000" />
       <workItem from="1544715096534" duration="3342000" />
-      <workItem from="1544780419352" duration="4194000" />
+      <workItem from="1544780419352" duration="25483000" />
+      <workItem from="1544897049597" duration="3860000" />
+      <workItem from="1544912513083" duration="764000" />
+      <workItem from="1544955194293" duration="7053000" />
     </task>
+    <task id="LOCAL-00001" summary="ia - over">
+      <created>1544955273406</created>
+      <option name="number" value="00001" />
+      <option name="presentableId" value="LOCAL-00001" />
+      <option name="project" value="LOCAL" />
+      <updated>1544955273406</updated>
+    </task>
+    <option name="localTasksCounter" value="2" />
     <servers />
   </component>
   <component name="TimeTrackingManager">
-    <option name="totallyTimeSpent" value="38929000" />
+    <option name="totallyTimeSpent" value="71895000" />
+  </component>
+  <component name="TodoView">
+    <todo-panel id="selected-file">
+      <is-autoscroll-to-source value="true" />
+    </todo-panel>
+    <todo-panel id="all">
+      <are-packages-shown value="true" />
+      <is-autoscroll-to-source value="true" />
+    </todo-panel>
   </component>
   <component name="ToolWindowManager">
-    <frame x="0" y="34" width="1920" height="1015" extended-state="7" />
+    <frame x="0" y="34" width="1920" height="1015" extended-state="6" />
     <layout>
-      <window_info active="true" content_ui="combo" id="Project" order="0" visible="true" weight="0.12179487" />
+      <window_info content_ui="combo" id="Project" order="0" visible="true" weight="0.125" />
       <window_info id="Structure" order="1" side_tool="true" weight="0.25" />
       <window_info id="Image Layers" order="2" />
       <window_info id="Designer" order="3" />
@@ -314,11 +282,11 @@
       <window_info anchor="bottom" id="Debug" order="3" weight="0.4" />
       <window_info anchor="bottom" id="Cvs" order="4" weight="0.25" />
       <window_info anchor="bottom" id="Inspection" order="5" weight="0.4" />
-      <window_info anchor="bottom" id="TODO" order="6" />
+      <window_info anchor="bottom" id="TODO" order="6" weight="0.3291714" />
       <window_info anchor="bottom" id="Docker" order="7" />
       <window_info anchor="bottom" id="Version Control" order="8" />
       <window_info anchor="bottom" id="Database Changes" order="9" />
-      <window_info anchor="bottom" id="Terminal" order="10" visible="true" weight="0.3200908" />
+      <window_info active="true" anchor="bottom" id="Terminal" order="10" visible="true" weight="0.31895572" />
       <window_info anchor="bottom" id="Event Log" order="11" side_tool="true" />
       <window_info anchor="bottom" id="Messages" order="12" weight="0.3291714" />
       <window_info anchor="right" id="Commander" internal_type="SLIDING" order="0" type="SLIDING" weight="0.4" />
@@ -334,6 +302,10 @@
   </component>
   <component name="TypeScriptGeneratedFilesManager">
     <option name="version" value="1" />
+  </component>
+  <component name="VcsManagerConfiguration">
+    <MESSAGE value="ia - over" />
+    <option name="LAST_COMMIT_MESSAGE" value="ia - over" />
   </component>
   <component name="antWorkspaceConfiguration">
     <option name="IS_AUTOSCROLL_TO_SOURCE" value="false" />
@@ -360,13 +332,6 @@
         </state>
       </provider>
     </entry>
-    <entry file="file://$PROJECT_DIR$/ia/ia_david.erl">
-      <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="126">
-          <caret line="57" selection-start-line="57" selection-end-line="57" />
-        </state>
-      </provider>
-    </entry>
     <entry file="file://$PROJECT_DIR$/ia/.hosts.erlang">
       <provider selected="true" editor-type-id="text-editor">
         <state relative-caret-position="21">
@@ -386,46 +351,10 @@
         </state>
       </provider>
     </entry>
-    <entry file="file://$PROJECT_DIR$/game/src/main/java/game/Chess.java">
-      <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="84">
-          <caret line="7" column="13" selection-start-line="7" selection-start-column="13" selection-end-line="7" selection-end-column="13" />
-        </state>
-      </provider>
-    </entry>
-    <entry file="file://$PROJECT_DIR$/game/src/main/java/game/EntryPoint.java">
-      <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="252">
-          <caret line="15" column="18" selection-start-line="15" selection-start-column="18" selection-end-line="15" selection-end-column="18" />
-          <folding>
-            <element signature="imports" expanded="true" />
-          </folding>
-        </state>
-      </provider>
-    </entry>
-    <entry file="file://$PROJECT_DIR$/ia/ia.erl">
-      <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="21">
-          <caret line="48" column="19" selection-start-line="48" selection-start-column="19" selection-end-line="48" selection-end-column="19" />
-        </state>
-      </provider>
-    </entry>
-    <entry file="file://$PROJECT_DIR$/ia/linda/__MACOSX/Linda-master/src/examples/._profiling.erl">
-      <provider selected="true" editor-type-id="text-editor" />
-    </entry>
-    <entry file="file://$PROJECT_DIR$/ia/linda/__MACOSX/Linda-master/src/examples/._deadlock_example.erl">
-      <provider selected="true" editor-type-id="text-editor" />
-    </entry>
-    <entry file="file://$PROJECT_DIR$/ia/linda/__MACOSX/Linda-master/src/examples/._deadlock_cycle.erl">
-      <provider selected="true" editor-type-id="text-editor" />
-    </entry>
-    <entry file="file://$PROJECT_DIR$/ia/linda/__MACOSX/Linda-master/src/examples/._addition.erl">
-      <provider selected="true" editor-type-id="text-editor">
-        <state>
-          <caret column="35" selection-start-column="35" selection-end-column="35" />
-        </state>
-      </provider>
-    </entry>
+    <entry file="file://$PROJECT_DIR$/ia/linda/__MACOSX/Linda-master/src/examples/._profiling.erl" />
+    <entry file="file://$PROJECT_DIR$/ia/linda/__MACOSX/Linda-master/src/examples/._deadlock_example.erl" />
+    <entry file="file://$PROJECT_DIR$/ia/linda/__MACOSX/Linda-master/src/examples/._deadlock_cycle.erl" />
+    <entry file="file://$PROJECT_DIR$/ia/linda/__MACOSX/Linda-master/src/examples/._addition.erl" />
     <entry file="file://$PROJECT_DIR$/ia/chessfold/chessfold.erl">
       <provider selected="true" editor-type-id="text-editor">
         <state relative-caret-position="21">
@@ -436,10 +365,41 @@
     <entry file="file://$PROJECT_DIR$/ia/linda/src/examples/addition.erl">
       <provider selected="true" editor-type-id="text-editor" />
     </entry>
+    <entry file="file://$PROJECT_DIR$/game/src/main/java/game/Chess.java">
+      <provider selected="true" editor-type-id="text-editor">
+        <state relative-caret-position="84">
+          <caret line="7" column="20" lean-forward="true" selection-start-line="7" selection-start-column="20" selection-end-line="7" selection-end-column="20" />
+        </state>
+      </provider>
+    </entry>
     <entry file="file://$PROJECT_DIR$/ia/iaTS.erl">
       <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="-192">
-          <caret line="2" lean-forward="true" selection-start-line="2" selection-end-line="2" />
+        <state relative-caret-position="357">
+          <caret line="17" lean-forward="true" selection-start-line="17" selection-end-line="17" />
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/ia/ia_david.erl">
+      <provider selected="true" editor-type-id="text-editor">
+        <state relative-caret-position="-15">
+          <caret line="78" lean-forward="true" selection-start-line="78" selection-end-line="78" />
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/ia/ia.erl">
+      <provider selected="true" editor-type-id="text-editor">
+        <state relative-caret-position="420">
+          <caret line="158" column="77" lean-forward="true" selection-start-line="158" selection-start-column="77" selection-end-line="158" selection-end-column="77" />
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/game/src/main/java/game/EntryPoint.java">
+      <provider selected="true" editor-type-id="text-editor">
+        <state relative-caret-position="179">
+          <caret line="15" selection-start-line="15" selection-end-line="15" />
+          <folding>
+            <element signature="imports" expanded="true" />
+          </folding>
         </state>
       </provider>
     </entry>

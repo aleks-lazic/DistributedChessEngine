@@ -9,9 +9,9 @@
 -module(ia).
 %% API
 -import(lists, [max/1, min/1, nth/2]).
--export([master/1, nextMove/5, nextStep/6, spawnProcesses/4, evaluate/1, determinateFinalMove/7, calculateNextMove/6]).
+-export([master/2, nextMove/6, nextStep/6, spawnProcesses/5, evaluate/1, determinateFinalMove/8, calculateNextMove/6]).
 
-master(TimeToPlay) ->
+master(TimeToPlay, DepthSearch) ->
   %Save the master pid to pass messages
   PidMaster = self(),
 
@@ -26,22 +26,22 @@ master(TimeToPlay) ->
   PidMaster ! {whiteToPlay},
 
   %start listening for the messages
-  nextMove(PidMaster, PidJava, HostJava, CurrentFen, 0).
+  nextMove(PidMaster, PidJava, HostJava, CurrentFen, 0, DepthSearch).
 
-nextMove(PidMaster, PidJava, HostJava, CurrentFen, Seconds) ->
+nextMove(PidMaster, PidJava, HostJava, CurrentFen, Seconds, DepthSearch) ->
   receive
   %Beginning of the game, white starts
     {whiteToPlay} ->
       io:format("Current Fen : ~p~n", [CurrentFen]),
       {ok, Term} = io:read("white to play, enter a move : "),
       {PidJava, HostJava} ! {self(), whiteMove, {CurrentFen, Term}},
-      nextMove(PidMaster, PidJava, HostJava, CurrentFen, Seconds);
+      nextMove(PidMaster, PidJava, HostJava, CurrentFen, Seconds,DepthSearch);
 
   %The white cannot play that move (illegal move)
     {_, error, {TextError}} ->
       io:format("~p~n", [TextError]),
       self() ! {whiteToPlay},
-      nextMove(PidMaster, PidJava, HostJava, CurrentFen, Seconds);
+      nextMove(PidMaster, PidJava, HostJava, CurrentFen, Seconds,DepthSearch);
 
   %The white just moved
     {_, whiteMove, {Fen}} ->
@@ -50,12 +50,12 @@ nextMove(PidMaster, PidJava, HostJava, CurrentFen, Seconds) ->
       {Mega, Sec, Micro} = os:timestamp(),
       BeginTimeMillis = (Mega*1000000 + Sec)*1000 + round(Micro/1000),
       getLegalMoves(PidJava, HostJava, self(), Fen),
-      nextMove(PidMaster, PidJava, HostJava, CurrentFen, BeginTimeMillis);
+      nextMove(PidMaster, PidJava, HostJava, CurrentFen, BeginTimeMillis,DepthSearch);
 
   %Received legal moves for the black to play
     {_, getLegalMoves, {ListFen}} ->
-      spawnProcesses(PidMaster, PidJava, HostJava, ListFen),
-      determinateFinalMove(PidMaster, PidJava, HostJava, length(ListFen), 0, [], Seconds)
+      spawnProcesses(PidMaster, PidJava, HostJava, ListFen,DepthSearch),
+      determinateFinalMove(PidMaster, PidJava, HostJava, length(ListFen), 0, [], Seconds,DepthSearch)
   end.
 
 
@@ -107,10 +107,10 @@ calculateNextMove(PidMaster, PidJava, HostJava, CurrentFenHistory, Value, Counte
       calculateBestMoveBlack(PidMaster, PidJava, HostJava, CurrentFenHistory, Value, Counter - 1, ListFen, self())
   end.
 
-determinateFinalMove(PidMaster, PidJava, HostJava, NbProcesses, MessagesReceived, ListFen, Time) ->
+determinateFinalMove(PidMaster, PidJava, HostJava, NbProcesses, MessagesReceived, ListFen, Time, DepthSearch) ->
   receive
     {Pid, blackFinalMove, {FinalFen, Eval}} when NbProcesses - 1 /= MessagesReceived ->
-      determinateFinalMove(PidMaster, PidJava, HostJava, NbProcesses, MessagesReceived + 1, ListFen ++ [{nth(1, FinalFen), Eval}], Time);
+      determinateFinalMove(PidMaster, PidJava, HostJava, NbProcesses, MessagesReceived + 1, ListFen ++ [{nth(1, FinalFen), Eval}], Time, DepthSearch);
 
     {Pid, blackFinalMove, {FinalFen, Eval}} when NbProcesses - 1 == MessagesReceived ->
       FinalListFen = ListFen ++ [{nth(1, FinalFen), Eval}],
@@ -129,7 +129,7 @@ determinateFinalMove(PidMaster, PidJava, HostJava, NbProcesses, MessagesReceived
       PidMaster ! {whiteToPlay},
 
       %start listening for the messages
-      nextMove(PidMaster, PidJava, HostJava, FenPlayed, 0)
+      nextMove(PidMaster, PidJava, HostJava, FenPlayed, 0,DepthSearch)
 
   end.
 
@@ -164,12 +164,12 @@ sendResultsToMaster(PidMaster, CurrentFenHistory, Value, ListFen, Process) ->
   FinalFen = nth(RandIndex, GoodFens),
   PidMaster ! {Process, blackFinalMove, {CurrentFenHistory ++ [FinalFen], MaxEval + Value}}.
 
-spawnProcesses(_, _, _, []) -> ok;
-spawnProcesses(PidMaster, PidJava, HostJava, [H | T]) ->
-  Process = spawn(?MODULE, calculateNextMove, [PidMaster, PidJava, HostJava, [] ++ [H], 0, 10]),
+spawnProcesses(_, _, _, [], _) -> ok;
+spawnProcesses(PidMaster, PidJava, HostJava, [H | T], DepthSearch) ->
+  Process = spawn(?MODULE, calculateNextMove, [PidMaster, PidJava, HostJava, [] ++ [H], 0, DepthSearch]),
   getLegalMoves(PidJava, HostJava, Process, H),
   io:format("Process spawned : ~p~n", [Process]),
-  spawnProcesses(PidMaster, PidJava, HostJava, T).
+  spawnProcesses(PidMaster, PidJava, HostJava, T, DepthSearch).
 
 
 % Evaluate the balance of a given board

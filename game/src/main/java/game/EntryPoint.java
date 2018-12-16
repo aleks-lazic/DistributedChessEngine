@@ -13,7 +13,7 @@ public class EntryPoint {
 	public static void main(String[] args) {
 		try {
 
-			self = new OtpNode("master@diufvm38.unifr.ch", args[0]);
+			self = new OtpNode("master@aleks", "cookie");
 			mbox = self.createMbox("java");
 			OtpErlangObject o;
 			OtpErlangTuple msg;
