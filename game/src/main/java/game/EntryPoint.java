@@ -47,6 +47,14 @@ public class EntryPoint {
 	public static void sortMsg(OtpErlangPid from, OtpErlangAtom order, OtpErlangTuple tuple) {
 		OtpErlangTuple response = null;
 		switch (order.toString()) {
+		case "getLegalFens":
+			try {
+				response = Chess.getLegalFens(tuple);
+			} catch (MoveGeneratorException e) {
+				order = new OtpErlangAtom("error");
+				response = new OtpErlangTuple(new OtpErlangString(e.getMessage()));
+			}
+			break;
 		case "getLegalMoves":
 			try {
 				response = Chess.getLegalMoves(tuple);
@@ -70,12 +78,18 @@ public class EntryPoint {
 			} catch (IOException e) {
 				order = new OtpErlangAtom("error");
 				response = new OtpErlangTuple(new OtpErlangString(e.getMessage()));
+			} catch (RuntimeException e) {
+				order = new OtpErlangAtom("error");
+				response = new OtpErlangTuple(new OtpErlangString(e.getMessage()));
 			}
 			break;
 		case "blackMove":
 			try {
 				response = Chess.move(tuple);
 			} catch (IOException e) {
+				order = new OtpErlangAtom("error");
+				response = new OtpErlangTuple(new OtpErlangString(e.getMessage()));
+			} catch (RuntimeException e) {
 				order = new OtpErlangAtom("error");
 				response = new OtpErlangTuple(new OtpErlangString(e.getMessage()));
 			}
