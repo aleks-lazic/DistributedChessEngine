@@ -8,29 +8,31 @@
 -module(ia).
 
 -import(lists, [max/1, min/1, nth/2]).
--export([master/0, whiteTurn/5, nextMove/6, determinateFinalMove/7]).
+-export([master/2, master/1, whiteTurn/6, nextMove/6, determinateFinalMove/8]).
 
 % Starter function
-master() ->
+master(CurrentFen, DepthSearch) ->
   % Save the master pid to pass messages
   PidMaster = self(),
   % Save the java pid to pass messages
   PidJava = java,
-  HostJava = 'master@RICC-ROG',
-  % Forsyth–Edwards Notation (FEN) for the initial board state
-  CurrentFen = "rnbqkbnr/pppppppp/8/8/8/8/PPPPPPPP/RNBQKBNR w KQkq -",
+  HostJava = 'master@aleks',
   % Send message to start the game
   PidMaster ! {self(), whiteToPlay, {}},
   % Start listening for the messages
-  whiteTurn(PidMaster, PidJava, HostJava, CurrentFen, 0).
+  whiteTurn(PidMaster, PidJava, HostJava, CurrentFen, 0, DepthSearch).
 
-whiteTurn(PidMaster, PidJava, HostJava, CurrentFen, Seconds) ->
+master(DepthSearch) ->
+  % Forsyth–Edwards Notation (FEN) for the initial board state
+  master("rnbqkbnr/pppppppp/8/8/8/8/PPPPPPPP/RNBQKBNR w KQkq -", DepthSearch).
+
+whiteTurn(PidMaster, PidJava, HostJava, CurrentFen, Seconds, DepthSearch) ->
   receive
     % White player turn, get avalabile moves
     {_, whiteToPlay, {}} ->
       io:format("Current Fen : ~p~n", [CurrentFen]),
       {PidJava, HostJava} ! {PidMaster, getLegalMoves, {CurrentFen}},
-      whiteTurn(PidMaster, PidJava, HostJava, CurrentFen, Seconds);
+      whiteTurn(PidMaster, PidJava, HostJava, CurrentFen, Seconds, DepthSearch);
     % White player turn, print avalabile moves and reads player input
     {_, getLegalMoves, {ListMoves}} ->
       io:format("White player turn, avalible moves : ~p~n", [ListMoves]),
@@ -40,7 +42,7 @@ whiteTurn(PidMaster, PidJava, HostJava, CurrentFen, Seconds) ->
         true ->
           {ok, Term} = io:read("Enter a move : "),
       {PidJava, HostJava} ! {PidMaster, whiteMove, {CurrentFen, Term}},
-      whiteTurn(PidMaster, PidJava, HostJava, CurrentFen, Seconds)
+      whiteTurn(PidMaster, PidJava, HostJava, CurrentFen, Seconds, DepthSearch)
       end;
     % The white player just moved
     {_, whiteMove, {Fen}} ->
@@ -49,29 +51,29 @@ whiteTurn(PidMaster, PidJava, HostJava, CurrentFen, Seconds) ->
       BeginTimeMillis = (Mega*1000000 + Sec)*1000 + round(Micro/1000),
       % Get the legal moves (as FENs) for the black player
       {PidJava, HostJava} ! {PidMaster, getLegalFens, {Fen}},
-      whiteTurn(PidMaster, PidJava, HostJava, CurrentFen, BeginTimeMillis);
+      whiteTurn(PidMaster, PidJava, HostJava, CurrentFen, BeginTimeMillis, DepthSearch);
     % Error, the white player cannot play that move (illegal move)
     {_, error, {TextError}} ->
       io:format("~p~n", [TextError]),
       PidMaster ! {self(), whiteToPlay, {}},
-      whiteTurn(PidMaster, PidJava, HostJava, CurrentFen, Seconds);
+      whiteTurn(PidMaster, PidJava, HostJava, CurrentFen, Seconds, DepthSearch);
     % Received legal moves (as FENs) for the black player
     {_, getLegalFens, {ListFen}} ->
       if % If no moves are allowed = checkmate
         length(ListFen) == 0 ->
           io:format("Checkmate, you win.~n", []);
         true ->
-          spawnProcesses(PidMaster, PidJava, HostJava, ListFen),
-          determinateFinalMove(PidMaster, PidJava, HostJava, length(ListFen), 0, [], Seconds)
+          spawnProcesses(PidMaster, PidJava, HostJava, ListFen, DepthSearch),
+          determinateFinalMove(PidMaster, PidJava, HostJava, length(ListFen), 0, [], Seconds, DepthSearch)
       end
   end.
 
 % Spawns as many processes as there are differents blacks legal moves
-spawnProcesses(_, _, _, []) -> ok;
-spawnProcesses(PidMaster, PidJava, HostJava, [H | T]) ->
-  Process = spawn(?MODULE, nextMove, [PidMaster, PidJava, HostJava, [] ++ [H], 0, 10]),
+spawnProcesses(_, _, _, [], _) -> ok;
+spawnProcesses(PidMaster, PidJava, HostJava, [H | T], DepthSearch) ->
+  Process = spawn(?MODULE, nextMove, [PidMaster, PidJava, HostJava, [] ++ [H], 0, DepthSearch]),
   {PidJava, HostJava} ! {Process, getLegalFens, {H}},
-  spawnProcesses(PidMaster, PidJava, HostJava, T).
+  spawnProcesses(PidMaster, PidJava, HostJava, T, DepthSearch).
 
 nextMove(PidMaster, PidJava, HostJava, CurrentFenHistory, Value, Counter) ->
   receive
@@ -120,11 +122,11 @@ evaluatewhiteTurn(PidMaster, PidJava, HostJava, CurrentFenHistory, Value, Counte
       nextMove(PidMaster, PidJava, HostJava, CurrentFenHistory ++ [FinalFen], MinEval + Value, Counter)
   end.
 
-determinateFinalMove(PidMaster, PidJava, HostJava, NbProcesses, MessagesReceived, ListFen, Time) ->
+determinateFinalMove(PidMaster, PidJava, HostJava, NbProcesses, MessagesReceived, ListFen, Time, DepthSearch) ->
   receive
     % Not all processes have replied
     {_, blackFinalMove, {FinalFen, FinalEval}} when NbProcesses - 1 /= MessagesReceived ->
-      determinateFinalMove(PidMaster, PidJava, HostJava, NbProcesses, MessagesReceived + 1, ListFen ++ [{nth(1, FinalFen), FinalEval}], Time);
+      determinateFinalMove(PidMaster, PidJava, HostJava, NbProcesses, MessagesReceived + 1, ListFen ++ [{nth(1, FinalFen), FinalEval}], Time, DepthSearch);
     % All processes have replied
     {_, blackFinalMove, {FinalFen, FinalEval}} when NbProcesses - 1 == MessagesReceived ->
       % Chooses the best branch to play
@@ -141,7 +143,7 @@ determinateFinalMove(PidMaster, PidJava, HostJava, NbProcesses, MessagesReceived
       io:format("Time used to calculate black move : ~p seconds ~n", [TotalTimeToPlay]),
       % It's white player turn, with the new fen
       PidMaster ! {self(), whiteToPlay, {}},
-      whiteTurn(PidMaster, PidJava, HostJava, FenPlayed, 0)
+      whiteTurn(PidMaster, PidJava, HostJava, FenPlayed, 0, DepthSearch)
   end.
 
 % Evaluate the balance of a given board
