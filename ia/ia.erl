@@ -16,7 +16,7 @@ master() ->
   PidMaster = self(),
   % Save the java pid to pass messages
   PidJava = java,
-  HostJava = 'master@RICC-ROG',
+  HostJava = 'master@aleks',
   % Forsyth–Edwards Notation (FEN) for the initial board state
   CurrentFen = "rnbqkbnr/pppppppp/8/8/8/8/PPPPPPPP/RNBQKBNR w KQkq -",
   % Send message to start the game
@@ -144,7 +144,7 @@ determinateFinalMove(PidMaster, PidJava, HostJava, NbProcesses, MessagesReceived
       PidMaster ! {whiteToPlay},
 
       %start listening for the messages
-      nextMove(PidMaster, PidJava, HostJava, FenPlayed, 0)
+      nextMove(PidMaster, PidJava, HostJava, FenPlayed, 0, 10)
 
   end.
 
