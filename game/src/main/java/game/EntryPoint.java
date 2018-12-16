@@ -11,9 +11,14 @@ public class EntryPoint {
 	public static OtpMbox mbox;
 
 	public static void main(String[] args) {
-		try {
 
-			self = new OtpNode("master@aleks", "cookie");
+		if(args.length == 0){
+			System.out.println("Please, enter the cookie as the first parameter !");
+			return;
+		}
+
+		try {
+			self = new OtpNode("master@diufvm38.unifr.ch", args[0]);
 			mbox = self.createMbox("java");
 			OtpErlangObject o;
 			OtpErlangTuple msg;
