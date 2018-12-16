@@ -7,7 +7,6 @@
   </component>
   <component name="ChangeListManager">
     <list default="true" id="2f99ce82-8c54-4f4b-86c7-bc749a6a215a" name="Default Changelist" comment="">
-      <change beforePath="$PROJECT_DIR$/.idea/workspace.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/workspace.xml" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/ia/ia.erl" beforeDir="false" afterPath="$PROJECT_DIR$/ia/ia.erl" afterDir="false" />
     </list>
     <ignored path="$PROJECT_DIR$/target/" />
@@ -37,8 +36,8 @@
       <file pinned="false" current-in-tab="true">
         <entry file="file://$PROJECT_DIR$/ia/ia.erl">
           <provider selected="true" editor-type-id="text-editor">
-            <state relative-caret-position="210">
-              <caret line="10" column="28" selection-start-line="10" selection-start-column="28" selection-end-line="10" selection-end-column="28" />
+            <state relative-caret-position="378">
+              <caret line="18" column="35" selection-start-line="18" selection-end-line="19" />
             </state>
           </provider>
         </entry>
@@ -180,7 +179,7 @@
   <component name="PropertiesComponent">
     <property name="WebServerToolWindowFactoryState" value="false" />
     <property name="aspect.path.notification.shown" value="true" />
-    <property name="com.android.tools.idea.instantapp.provision.ProvisionBeforeRunTaskProvider.myTimeStamp" value="1544997958992" />
+    <property name="com.android.tools.idea.instantapp.provision.ProvisionBeforeRunTaskProvider.myTimeStamp" value="1544998115221" />
     <property name="last_opened_file_path" value="$PROJECT_DIR$/game/pom.xml" />
     <property name="nodejs_interpreter_path.stuck_in_default_project" value="undefined stuck path" />
     <property name="nodejs_npm_path_reset_for_default_project" value="true" />
@@ -265,7 +264,7 @@
       <workItem from="1544897049597" duration="3860000" />
       <workItem from="1544912513083" duration="764000" />
       <workItem from="1544955194293" duration="7053000" />
-      <workItem from="1544996169594" duration="1789000" />
+      <workItem from="1544996169594" duration="1945000" />
     </task>
     <task id="LOCAL-00001" summary="ia - over">
       <created>1544955273406</created>
@@ -278,7 +277,7 @@
     <servers />
   </component>
   <component name="TimeTrackingManager">
-    <option name="totallyTimeSpent" value="73684000" />
+    <option name="totallyTimeSpent" value="73840000" />
   </component>
   <component name="TodoView">
     <todo-panel id="selected-file">
@@ -425,8 +424,8 @@
     </entry>
     <entry file="file://$PROJECT_DIR$/ia/ia.erl">
       <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="210">
-          <caret line="10" column="28" selection-start-line="10" selection-start-column="28" selection-end-line="10" selection-end-column="28" />
+        <state relative-caret-position="378">
+          <caret line="18" column="35" selection-start-line="18" selection-end-line="19" />
         </state>
       </provider>
     </entry>

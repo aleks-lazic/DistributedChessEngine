@@ -16,7 +16,7 @@ master(CurrentFen, DepthSearch) ->
   PidMaster = self(),
   % Save the java pid to pass messages
   PidJava = java,
-  HostJava = 'master@aleks',
+  HostJava = 'master@diufvm38.unifr.ch',
   % Send message to start the game
   PidMaster ! {self(), whiteToPlay, {}},
   % Start listening for the messages
