@@ -16,7 +16,7 @@ master() ->
   PidMaster = self(),
   % Save the java pid to pass messages
   PidJava = java,
-  HostJava = 'master@aleks',
+  HostJava = 'master@RICC-ROG',
   % Forsyth–Edwards Notation (FEN) for the initial board state
   CurrentFen = "rnbqkbnr/pppppppp/8/8/8/8/PPPPPPPP/RNBQKBNR w KQkq -",
   % Send message to start the game
@@ -139,13 +139,9 @@ determinateFinalMove(PidMaster, PidJava, HostJava, NbProcesses, MessagesReceived
       EndTimeMillis = (Mega*1000000 + Sec)*1000 + round(Micro/1000),
       TotalTimeToPlay = (EndTimeMillis - Time)/1000,
       io:format("Time used to calculate black move : ~p seconds ~n", [TotalTimeToPlay]),
-
-      %Send message for the white to play
-      PidMaster ! {whiteToPlay},
-
-      %start listening for the messages
-      nextMove(PidMaster, PidJava, HostJava, FenPlayed, 0, 10)
-
+      % It's white player turn, with the new fen
+      PidMaster ! {self(), whiteToPlay, {}},
+      whiteTurn(PidMaster, PidJava, HostJava, FenPlayed, 0)
   end.
 
 % Evaluate the balance of a given board
