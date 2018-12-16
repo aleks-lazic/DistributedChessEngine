@@ -5,8 +5,8 @@ Distributed chess engine, exploring and evaluating future possible moves to dete
 * Erlang: https://www.erlang.org/downloads
 * Java: https://www.java.com/fr/download
 ## Engine instructions (ia\ia.erl)
-* In a terminal, run the java chess library node: `java -jar game/game.jar <HOSTNAME> <COOKIE>`, where <HOSTNAME> is this machine hostname and <COOKIE> is a secret word used for Erlang communication between nodes.
-* In `DistributedChessEngine/ia/`Open an Enrlang terminal: `erl -name <HOSTNAME> -setcookie <COOKIE>`, where <HOSTNAME> is this machine hostname and with the same <COOKIE> as above.
+* In a terminal, run the java chess library node: `java -jar game/game.jar <HOSTNAME> <COOKIE>`, where `<HOSTNAME>` is this machine hostname and `<COOKIE>` is a secret word used for Erlang communication between nodes.
+* In `DistributedChessEngine/ia/`Open an Enrlang terminal: `erl -name <HOSTNAME> -setcookie <COOKIE>`, where `<HOSTNAME>` is this machine hostname and with the same `<COOKIE>` as above.
 * Compile the file ia.erl: `c(ia).`.
 ### Function `ia:master(javahost, depth, [fen]).`
 Start or resume a given game.
