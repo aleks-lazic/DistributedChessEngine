@@ -8,23 +8,22 @@
 -module(ia).
 
 -import(lists, [max/1, min/1, nth/2]).
--export([master/2, master/1, whiteTurn/6, nextMove/6, determinateFinalMove/8]).
+-export([master/3, master/2, whiteTurn/6, nextMove/6, determinateFinalMove/8]).
 
 % Starter function
-master(CurrentFen, DepthSearch) ->
+master(HostJava, CurrentFen, DepthSearch) ->
   % Save the master pid to pass messages
   PidMaster = self(),
   % Save the java pid to pass messages
   PidJava = java,
-  HostJava = 'master@diufvm38.unifr.ch',
   % Send message to start the game
   PidMaster ! {self(), whiteToPlay, {}},
   % Start listening for the messages
   whiteTurn(PidMaster, PidJava, HostJava, CurrentFen, 0, DepthSearch).
 
-master(DepthSearch) ->
+master(HostJava, DepthSearch) ->
   % Forsyth–Edwards Notation (FEN) for the initial board state
-  master("rnbqkbnr/pppppppp/8/8/8/8/PPPPPPPP/RNBQKBNR w KQkq -", DepthSearch).
+  master(HostJava, DepthSearch, "rnbqkbnr/pppppppp/8/8/8/8/PPPPPPPP/RNBQKBNR w KQkq -").
 
 whiteTurn(PidMaster, PidJava, HostJava, CurrentFen, Seconds, DepthSearch) ->
   receive

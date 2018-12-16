@@ -18,7 +18,7 @@ public class EntryPoint {
 		}
 
 		try {
-			self = new OtpNode("master@diufvm38.unifr.ch", args[0]);
+			self = new OtpNode(args[0], args[1]);
 			mbox = self.createMbox("java");
 			OtpErlangObject o;
 			OtpErlangTuple msg;
