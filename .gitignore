@@ -76,7 +76,6 @@ local.properties
 .eunit
 deps
 *.o
-*.beam
 *.plt
 erl_crash.dump
 ebin/*.beam
@@ -98,7 +97,6 @@ rel/example_project
 .mtj.tmp/
 
 # Package Files #
-*.jar
 *.war
 *.nar
 *.ear
