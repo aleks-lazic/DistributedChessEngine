@@ -7,31 +7,8 @@
   </component>
   <component name="ChangeListManager">
     <list default="true" id="2f99ce82-8c54-4f4b-86c7-bc749a6a215a" name="Default Changelist" comment="">
-      <change afterPath="$PROJECT_DIR$/game/game.jar" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/ia/explorer.erl" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/.gitignore" beforeDir="false" afterPath="$PROJECT_DIR$/.gitignore" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/.idea/workspace.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/workspace.xml" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/ia/.hosts.erlang" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/ia/connection.erl" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/ia/iaTS.erl" beforeDir="false" afterPath="$PROJECT_DIR$/ia/iaTS.erl" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/ia/ia_david.erl" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/ia/iadavid.erl" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/ia/linda/.gitignore" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/ia/linda/Emakefile" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/ia/linda/README.md" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/ia/linda/pylindastable.txt" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/ia/linda/results.txt" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/ia/linda/results2.txt" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/ia/linda/src/deadlock.erl" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/ia/linda/src/examples/addition.erl" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/ia/linda/src/examples/deadlock_cycle.erl" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/ia/linda/src/examples/deadlock_example.erl" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/ia/linda/src/examples/profiling.erl" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/ia/linda/src/examples/stable_marriage.erl" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/ia/linda/src/linda_kernel.erl" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/ia/linda/src/template.erl" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/ia/linda/src/tuple_space.erl" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/ia/linda/test/template_tests.erl" beforeDir="false" />
     </list>
     <ignored path="$PROJECT_DIR$/target/" />
     <ignored path="$PROJECT_DIR$/game/target/" />
@@ -57,9 +34,18 @@
   </component>
   <component name="FileEditorManager">
     <leaf SIDE_TABS_SIZE_LIMIT_KEY="300">
-      <file pinned="false" current-in-tab="true">
+      <file pinned="false" current-in-tab="false">
         <entry file="file://$PROJECT_DIR$/ia/linda-master/src/examples/addition.erl">
           <provider selected="true" editor-type-id="text-editor" />
+        </entry>
+      </file>
+      <file pinned="false" current-in-tab="true">
+        <entry file="file://$PROJECT_DIR$/.gitignore">
+          <provider selected="true" editor-type-id="text-editor">
+            <state relative-caret-position="357">
+              <caret line="17" column="6" selection-start-line="17" selection-start-column="6" selection-end-line="17" selection-end-column="6" />
+            </state>
+          </provider>
         </entry>
       </file>
     </leaf>
@@ -78,6 +64,7 @@
       <find>io:for</find>
       <find>now</find>
       <find>nextMove</find>
+      <find>.bea</find>
     </findStrings>
   </component>
   <component name="Git.Settings">
@@ -86,7 +73,6 @@
   <component name="IdeDocumentHistory">
     <option name="CHANGED_PATHS">
       <list>
-        <option value="$PROJECT_DIR$/.gitignore" />
         <option value="$PROJECT_DIR$/EntryPoint.java" />
         <option value="$PROJECT_DIR$/pom.xml" />
         <option value="$PROJECT_DIR$/game/src/main/java/META-INF/MANIFEST.MF" />
@@ -99,6 +85,7 @@
         <option value="$PROJECT_DIR$/ia/ia.erl" />
         <option value="$PROJECT_DIR$/ia/iaTS.erl" />
         <option value="$PROJECT_DIR$/ia/explorator.erl" />
+        <option value="$PROJECT_DIR$/.gitignore" />
       </list>
     </option>
   </component>
@@ -148,21 +135,6 @@
               <item name="ia" type="462c0819:PsiDirectoryNode" />
               <item name="linda-master" type="462c0819:PsiDirectoryNode" />
             </path>
-            <path>
-              <item name="DistributedChessEngine" type="b2602c69:ProjectViewProjectNode" />
-              <item name="DistributedChessEngine" type="462c0819:PsiDirectoryNode" />
-              <item name="ia" type="462c0819:PsiDirectoryNode" />
-              <item name="linda-master" type="462c0819:PsiDirectoryNode" />
-              <item name="src" type="462c0819:PsiDirectoryNode" />
-            </path>
-            <path>
-              <item name="DistributedChessEngine" type="b2602c69:ProjectViewProjectNode" />
-              <item name="DistributedChessEngine" type="462c0819:PsiDirectoryNode" />
-              <item name="ia" type="462c0819:PsiDirectoryNode" />
-              <item name="linda-master" type="462c0819:PsiDirectoryNode" />
-              <item name="src" type="462c0819:PsiDirectoryNode" />
-              <item name="examples" type="462c0819:PsiDirectoryNode" />
-            </path>
           </expand>
           <select />
         </subPane>
@@ -174,7 +146,7 @@
   <component name="PropertiesComponent">
     <property name="WebServerToolWindowFactoryState" value="false" />
     <property name="aspect.path.notification.shown" value="true" />
-    <property name="com.android.tools.idea.instantapp.provision.ProvisionBeforeRunTaskProvider.myTimeStamp" value="1545005877746" />
+    <property name="com.android.tools.idea.instantapp.provision.ProvisionBeforeRunTaskProvider.myTimeStamp" value="1545006087647" />
     <property name="last_opened_file_path" value="$PROJECT_DIR$/game/pom.xml" />
     <property name="nodejs_interpreter_path.stuck_in_default_project" value="undefined stuck path" />
     <property name="nodejs_npm_path_reset_for_default_project" value="true" />
@@ -185,8 +157,12 @@
     <property name="settings.editor.selected.configurable" value="Erlang External Tools" />
   </component>
   <component name="RecentsManager">
+    <key name="MoveFile.RECENT_KEYS">
+      <recent name="$PROJECT_DIR$/game" />
+    </key>
     <key name="CopyFile.RECENT_KEYS">
       <recent name="$PROJECT_DIR$/ia" />
+      <recent name="$PROJECT_DIR$" />
       <recent name="$PROJECT_DIR$/ia/chessfold" />
     </key>
   </component>
@@ -261,7 +237,7 @@
       <workItem from="1544955194293" duration="7053000" />
       <workItem from="1544996169594" duration="2874000" />
       <workItem from="1545000797931" duration="2525000" />
-      <workItem from="1545005433036" duration="462000" />
+      <workItem from="1545005433036" duration="655000" />
     </task>
     <task id="LOCAL-00001" summary="ia - over">
       <created>1544955273406</created>
@@ -274,7 +250,7 @@
     <servers />
   </component>
   <component name="TimeTrackingManager">
-    <option name="totallyTimeSpent" value="77756000" />
+    <option name="totallyTimeSpent" value="77949000" />
   </component>
   <component name="TodoView">
     <todo-panel id="selected-file">
@@ -287,6 +263,7 @@
   </component>
   <component name="ToolWindowManager">
     <frame x="0" y="34" width="1920" height="1015" extended-state="6" />
+    <editor active="true" />
     <layout>
       <window_info active="true" content_ui="combo" id="Project" order="0" visible="true" weight="0.1298077" />
       <window_info id="Structure" order="1" side_tool="true" weight="0.25" />
@@ -331,13 +308,6 @@
     <option name="FILTER_TARGETS" value="false" />
   </component>
   <component name="editorHistoryManager">
-    <entry file="file://$PROJECT_DIR$/.gitignore">
-      <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="310">
-          <caret line="191" column="22" selection-start-line="191" selection-start-column="22" selection-end-line="191" selection-end-column="22" />
-        </state>
-      </provider>
-    </entry>
     <entry file="file://$PROJECT_DIR$/EntryPoint.java" />
     <entry file="file://$PROJECT_DIR$/pom.xml" />
     <entry file="file://$PROJECT_DIR$/.idea/artifacts/game_jar.xml" />
@@ -434,6 +404,13 @@
     </entry>
     <entry file="file://$PROJECT_DIR$/ia/linda-master/src/examples/addition.erl">
       <provider selected="true" editor-type-id="text-editor" />
+    </entry>
+    <entry file="file://$PROJECT_DIR$/.gitignore">
+      <provider selected="true" editor-type-id="text-editor">
+        <state relative-caret-position="357">
+          <caret line="17" column="6" selection-start-line="17" selection-start-column="6" selection-end-line="17" selection-end-column="6" />
+        </state>
+      </provider>
     </entry>
   </component>
   <component name="masterDetails">

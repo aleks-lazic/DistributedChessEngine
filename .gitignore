@@ -15,6 +15,7 @@ local.properties
 .settings/
 .loadpath
 .recommenders
+.idea/
 
 # External tool builders
 .externalToolBuilders/
@@ -189,7 +190,6 @@ fabric.properties
 
 ### Intellij Patch ###
 # Comment Reason: https://github.com/joeblau/gitignore.io/issues/186#issuecomment-215987721
-
 # *.iml
 # modules.xml
 # .idea/misc.xml
@@ -197,6 +197,7 @@ fabric.properties
 
 # Sonarlint plugin
 .idea/sonarlint
+
 
 
 # End of https://www.gitignore.io/api/java,erlang,eclipse,visualstudiocode
